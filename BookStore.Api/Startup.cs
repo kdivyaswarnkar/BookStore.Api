@@ -31,7 +31,7 @@ namespace BookStore.Api
             // services.AddDbContext<BookStoreContext>(options=>options.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB;Database=BooksStoreApi;Integrated Security =True"));
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BookStoreDB")));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddTransient<IBookRepository,BookRepository>();
         }
 
