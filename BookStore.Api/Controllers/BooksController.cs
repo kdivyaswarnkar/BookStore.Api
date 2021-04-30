@@ -70,3 +70,6 @@ namespace BookStore.Api.Controllers
         }
     }
 }
+
+
+///automapper is a package that we have to install in our application that map all the properties in our application automatically
