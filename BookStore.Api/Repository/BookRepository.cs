@@ -43,5 +43,34 @@ namespace BookStore.Api.Repository
             // repo/db then firstasync method give the error where FirstOrDefaultAsync give the null value)
             return records;
         }
+
+
+        // Add New Book In To The Database 
+        public async Task<int> AddNewBookAsync(BookModel model)
+        {
+
+            var book = new Books()
+            {
+                Title = model.Title,
+                Description = model.Description
+            };
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+            return book.Id;
+        }
+
+
+        // Put Or update
+        public async Task UpdateBookAsync(int BookId,BookModel bookModel)
+        {
+            var book = await _context.Books.FindAsync(BookId);
+            if(book !=null)
+            {
+                book.Title = bookModel.Title;
+                book.Description = bookModel.Description;
+                await _context.SaveChangesAsync();
+            }
+            
+        }
     }
 }
