@@ -63,14 +63,21 @@ namespace BookStore.Api.Repository
         // Put Or update
         public async Task UpdateBookAsync(int BookId,BookModel bookModel)
         {
-            var book = await _context.Books.FindAsync(BookId);
-            if(book !=null)
+            //var book = await _context.Books.FindAsync(BookId);
+            //if(book !=null)
+            //{
+            //    book.Title = bookModel.Title;
+            //    book.Description = bookModel.Description;
+            //    await _context.SaveChangesAsync();
+            //}
+            var book = new Books()
             {
-                book.Title = bookModel.Title;
-                book.Description = bookModel.Description;
-                await _context.SaveChangesAsync();
-            }
-            
+                Id= bookModel.Id,
+                Title = bookModel.Title,
+                Description = bookModel.Description
+            };
+            _context.Books.Update(book);
+            await _context.SaveChangesAsync();
         }
     }
 }

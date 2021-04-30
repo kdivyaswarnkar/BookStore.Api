@@ -38,7 +38,6 @@ namespace BookStore.Api.Controllers
             return Ok(book);
         }
 
-
         [HttpPost("")]
         public async Task<IActionResult> AddNewBook([FromBody]BookModel bookModel)
         {
