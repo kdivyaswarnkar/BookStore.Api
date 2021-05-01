@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BookStore.Api.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 namespace BookStore.Api.Data
 {
     //Inherit class with DbContext which is available in Microsoft.EntityFrameworkCore
-    public class BookStoreContext:DbContext
+    public class BookStoreContext:IdentityDbContext<ApplicationUser>
     {
         // here we provide the options and also provide options for DbContext
         public BookStoreContext(DbContextOptions<BookStoreContext> options):base(options)

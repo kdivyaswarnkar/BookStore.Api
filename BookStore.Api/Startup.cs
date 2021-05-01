@@ -1,8 +1,10 @@
 using BookStore.Api.Data;
+using BookStore.Api.Models;
 using BookStore.Api.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,10 +32,20 @@ namespace BookStore.Api
         {
             // services.AddDbContext<BookStoreContext>(options=>options.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB;Database=BooksStoreApi;Integrated Security =True"));
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BookStoreDB")));
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<BookStoreContext>()
+            .AddDefaultTokenProviders();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddTransient<IBookRepository,BookRepository>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddCors(option =>
+            {
+                option.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +59,7 @@ namespace BookStore.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
