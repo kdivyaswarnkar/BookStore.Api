@@ -38,6 +38,7 @@ namespace BookStore.Api
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddTransient<IBookRepository,BookRepository>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
             services.AddAutoMapper(typeof(Startup));
             services.AddCors(option =>
             {
@@ -60,6 +61,7 @@ namespace BookStore.Api
 
             app.UseRouting();
             app.UseCors();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
