@@ -39,18 +39,18 @@ namespace BookStore.Api.Repository
         public async Task<BookModel> GetBookByIdAsync(int BookId)
         {
             //// we can use _context.Books.FindAsync(BookId) from getting this by id
-            //var records = await _context.Books.Where(x=>x.Id==BookId).Select(x => new BookModel()
-            //{
-            //    Id = x.Id,
-            //    Title = x.Title,
-            //    Description = x.Description,
-            //}).FirstOrDefaultAsync();
+        /*    var records = await _context.Books.Where(x => x.Id == BookId).Select(x => new BookModel()
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+            }).FirstOrDefaultAsync();
+            return records;      */
 
-            //// we can use firstAsync instead of FirstOrDefaultAsync (different between this is if you are lookin for the book if that book is not exist in
+            //// we can use firstAsync instead of FirstOrDefaultAsync (different between this is if you are looking for the book if that book is not exist in
             //// repo/db then firstasync method give the error where FirstOrDefaultAsync give the null value)
-            //return records;
-            
-           
+
+
             var book = await _context.Books.FindAsync(BookId);
             return _mapper.Map<BookModel>(book);
         }
